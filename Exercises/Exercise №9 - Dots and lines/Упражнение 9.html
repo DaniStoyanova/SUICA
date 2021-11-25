@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Упражнение 9</title>
+    <script src="suica.min.js"></script>
+
+    <script>
+      function main(n) {
+        new Suica();
+        oxyz();
+        demo();
+
+        a = point([-n / 2, -n / 2, -n / 2]);
+        a.pointSize = 10;
+        a.color = [Math.random(), Math.random(), Math.random()];
+
+        a = point([n / 2, -n / 2, -n / 2]);
+        a.pointSize = 10;
+        a.color = [Math.random(), Math.random(), Math.random()];
+
+        a = point([n / 2, n / 2, -n / 2]);
+        a.pointSize = 10;
+        a.color = [Math.random(), Math.random(), Math.random()];
+
+        a = point([-n / 2, n / 2, -n / 2]);
+        a.pointSize = 10;
+        a.color = [Math.random(), Math.random(), Math.random()];
+
+        a = point([-n / 2, -n / 2, n / 2]);
+        a.pointSize = 10;
+        a.color = [Math.random(), Math.random(), Math.random()];
+
+        a = point([n / 2, -n / 2, n / 2]);
+        a.pointSize = 10;
+        a.color = [Math.random(), Math.random(), Math.random()];
+
+        a = point([n / 2, n / 2, n / 2]);
+        a.pointSize = 10;
+        a.color = [Math.random(), Math.random(), Math.random()];
+
+        a = point([-n / 2, n / 2, n / 2]);
+        a.pointSize = 10;
+        a.color = [Math.random(), Math.random(), Math.random()];
+      }
+    </script>
+  </head>
+  <body onload="main(15)">
+    <canvas width="900" height="600" style="border: solid 1px black">
+      Не се поддържа canvas!
+    </canvas>
+    <noscript>Не се поддържа JavaScript!</noscript>
+  </body>
+</html>

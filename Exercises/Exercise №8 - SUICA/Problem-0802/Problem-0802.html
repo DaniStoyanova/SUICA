@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+ <head>
+	<meta charset="utf-8">
+	<title>Задача 0802: Графичен прозорец</title>
+	
+	<script src="suica.min.js"></script>
+	
+	<script>
+	function main()
+	{
+		new Suica(); <!--съзваване на инстанция на Suica-->
+		background([0.89,0.79,0.9]); <!--задаване на цвят на фона на графичния прозорец-->
+	}
+	</script>
+	
+	<style>
+		canvas { border: solid 3px black; } <!--промяна на стила на рамката на графичния прозорец-->
+	</style>
+
+
+	
+ </head>
+ 
+ <body onload="main()">
+ 
+	<canvas width="500" height="220"> <!--задаване на размера на графичния прозорец-->
+		Не се поддържа canvas!<!--извеждане на предупреждение, ако не се поддържа <canvas>-->
+	</canvas>
+
+ 	
+ </body>
+</html>

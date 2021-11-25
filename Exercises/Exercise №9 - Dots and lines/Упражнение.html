@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Пример 0914</title>
+
+    <script src="suica.min.js"></script>
+
+    <script>
+      function main(n, m) {
+        new Suica();
+        oxyz();
+        demo();
+
+        var A = point([random(-20, 20), random(-20, 20), random(-20, 20)]);
+        A.pointSize = 5;
+
+        var x = A.center[0];
+        var y = A.center[1];
+        var z = A.center[2];
+
+        var B = point([x + n, y, z]);
+        B.pointSize = 5;
+        var C = point([x + n, y + m, z]);
+        C.pointSize = 5;
+        var D = point([x, y + m, z]);
+        D.pointSize = 5;
+
+        var AB = segment([x, y, z], [x + n, y, z]);
+        AB.color = [0, 0, 1];
+        var BC = segment([x + n, y, z], [x + n, y + m, z]);
+        BC.color = [0, 0, 1];
+        var CD = segment([x + n, y + m, z], [x, y + m, z]);
+        CD.color = [0, 0, 1];
+        var DA = segment([x, y + m, z], [x, y, z]);
+        DA.color = [0, 0, 1];
+        var AC = segment([x, y, z], [x + n, y + m, z]);
+        AC.color = [0, 0, 1];
+        var BD = segment([x + n, y, z], [x, y + m, z]);
+        BD.color = [0, 0, 1];
+      }
+    </script>
+  </head>
+
+  <body onload="main(15, 10)">
+    <noscript> Искаме JavaScript, но няма! </noscript>
+
+    <canvas width="740" height="400" style="border: solid 1px Black">
+      Искаме canvas, но няма!
+    </canvas>
+  </body>
+</html>

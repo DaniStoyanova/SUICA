@@ -1,0 +1,29 @@
+body {background-color: AntiqueWhite;
+	 color: #1A4551;
+	 text-align: justify;
+	 font-family: Arial, sans-serif; /**задаване на шрифт на текста на страницата**/
+	 }
+	 
+li {background-color: rgba(135,206,235,1.0);
+  }
+
+div.theorem {background-color: #FFFBF5;
+			color: #42B0D1;
+			font-family: "Times New Roman", serif; /**задаване на шрифт на текста на теоремите**/
+			font-style: italic; /**задаване на стил на шрифта на теоремите**/
+			font-size: 13pt; /**задаване на размер на шрифта на теоремите**/
+			}
+			
+h1 {color: #3690AB;
+   text-align:center;
+   text-transform: uppercase; /**задаване на главни букви за заглавието**/
+   }
+   
+div.formula {text-align:center;
+			font-size: 16pt; /**задаване на по-голям размер на шрифта на формулата**/
+			font-weight: bold; /**удебеляване на шрифта на формулата**/
+			}
+
+p b {font-size: 15pt; /**задаване на по-голям размер на шрифта на означенията на теоремата**/
+   }
+ 

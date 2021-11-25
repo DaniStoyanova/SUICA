@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1205</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		
+		function main(x,y,z)
+		{
+			new Suica();
+			//oxyz();
+			demo();
+
+			var r = random(4,7);
+			var h = random(10,15);
+			var n = Math.floor(random(5,9));
+			var k = 0;
+			
+			p = pyramid([x,y,z],r,h,n).custom({color: [0,random(0.3,1), 0]});
+			c = cylinder([x,y,z-4],1.5,4).custom({color: [random(0.3,1),random(0.3,0.5), 0]});
+						
+			for (i=1; i<=5; i++)
+			{
+				var style = {
+					center: [x,y+k,z],
+					};
+				g = group([p,c]).custom(style);
+				k = k + 2*r + 5;
+			}
+
+		}
+	</script>	
+</head>
+
+<body onload="main(0,-18,0)">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>
+</html>

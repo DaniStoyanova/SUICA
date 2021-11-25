@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1108</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main(x,y,z,r)
+		{
+			new Suica();
+			//oxyz();
+			demo();
+			
+			var inity = y;
+			var k = 1;
+			
+			for (var i=1; i<=3; i++)
+			{
+				c = circle([x,y,z],r);
+				c.mode = Suica.LINE;
+				c.focus = [1,0,0];
+				
+				if (i==1) 
+					{
+					c.color = [0,0,1];
+					} 
+				 else
+					{
+						if (i==2)
+						{
+						c.color = [0,0,0];
+						} 
+						else 
+						{
+						c.color = [1,0,0];
+						}
+					}
+					
+				y = y + 2*r + k;
+			}
+			
+			y = inity + r + k/2;
+			z = z - r;
+			
+			for (var i=1; i<=2; i++)
+			{
+				c = circle([x,y,z],r);
+				c.mode = Suica.LINE;
+				c.focus = [1,0,0];
+				
+				if (i==1) 
+					{
+					c.color = [1,1,0];
+					} 
+				 else
+					{
+					c.color = [0,1,0];
+					}
+				
+				y = y + 2*r + k;
+			}
+		}
+	</script>	
+</head>
+
+<body onload="main(0,-20,5,10)">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>
+</html>

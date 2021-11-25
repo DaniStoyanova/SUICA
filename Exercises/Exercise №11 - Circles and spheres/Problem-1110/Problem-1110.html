@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1110</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main(x,y,z,r)
+		{
+			new Suica();
+			//oxyz();
+			demo();
+			
+			a = sphere([x,y,z],r);
+						
+			a = sphere ([x,y+2*r+5,z],r);
+			a.mode = Suica.LINE;
+		}
+	</script>	
+</head>
+
+<body onload="main(0,-10,0,10)">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>
+</html>

@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1009</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main(x,y,z,a,n)
+		{
+			new Suica();
+			oxyz();
+			demo();
+			
+			iniy = y;
+			k = n;
+			
+			for (var j=1; j<=n; j++)
+			{
+				
+				for (var i=1; i<=k; i++)
+				{
+					c = cube([x,y,z],a);
+					c.color = [random(0,1),random(0,1),random(0,1)];
+					y = y + a;
+				}
+				k = k - 1;
+				y = iniy + a/2*j;
+				z = z + a;
+			}
+			
+		}
+	</script>	
+</head>
+
+<body onload="main(15,15,-5,5,6)">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>
+</html>

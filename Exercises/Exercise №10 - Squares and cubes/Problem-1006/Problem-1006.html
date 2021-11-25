@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1006</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main(x,y,z,a)
+		{
+			new Suica();
+			oxyz();
+			demo();
+			
+			b = rectangle([x,y,z],[a,2*a]);
+			b.focus = [1,0,0];
+			
+			b = rectangle([x,y-a/2,z+3/2*a],[a,2*a]);
+			b.spin = radians(90);
+			b.color = [0,1,1];
+			b.focus = [1,0,0];
+						
+			b = rectangle([x,y+a,z+2*a],[a,2*a]);
+			b.focus = [1,0,0];
+			
+			b = rectangle([x,y+3/2*a,z+a/2],[a,2*a]);
+			b.spin = radians(90);
+			b.color = [0,1,1];b.focus = [1,0,0];
+			
+		}
+	</script>	
+</head>
+
+<body onload="main(15,15,0,5)">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>
+</html>

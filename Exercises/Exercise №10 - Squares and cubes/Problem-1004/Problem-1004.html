@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1004</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main(n,x,y,z,a)
+		{
+			new Suica();
+			oxyz();
+			demo();
+			
+			s = square([x,y,z],a);
+			s.mode = Suica.LINE;
+			s.focus = [1,0,0];
+			
+			
+			for (var i=1; i<=n; i++)
+			{
+				a = a*Math.sqrt(2)/2;
+				s = square([x,y,z],a);
+				s.mode = Suica.LINE;
+				s.spin = radians(45*i);
+				s.focus = [1,0,0];			
+			}
+
+		}
+	</script>	
+</head>
+
+<body onload="main(5,20,20,0,15)">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>
+</html>

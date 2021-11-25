@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1114</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main(x,y,z,r,h,n)
+		{
+			new Suica();
+			//oxyz();
+			demo(35, 0.5, 3, 0);
+			//demo();
+
+			for (var i=3; i<n+3; i++)
+			{  
+					
+				c = pyramid([x,y,z],r,h,i);
+				c.color = [random(0,1),random(0,1),random(0,1)];
+								
+				y = y + 2*r + 5
+			}
+		}
+	</script>	
+</head>
+
+<body onload="main(5,-30,0,7,20,4)">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>
+</html>

@@ -1,0 +1,76 @@
+body {background-color: #AD9C84; /**промяна на фона зад страницата**/
+	 color: #1A4551;
+	 text-align: justify;
+	 font-family: Arial, sans-serif;
+	 }
+	 
+div.page {border: none; /**без рамка на страницата**/
+		 width:800px; /**задаване на широчина на страницата**/
+		 background-color: AntiqueWhite; /**фон на съдържанието на страницата**/
+		 margin: 2em auto;
+		 padding: 1em;
+	     }
+	 
+ul {margin-top: 2em; /**отстъп над менюто с хипервръзките**/
+	margin-bottom: 3em; /**отстъп под менюто с хипервръзките**/
+	text-align: center; /**подравняване на менюто с хипервръзките в центъра**/
+	padding: 20px; /**разстояние от менюто с хипервръзките до разделителната линя**/
+	border-bottom: solid #3690AB 1px; /**разделителната линя разположена под менюто с хипервръзките**/
+	}
+	 
+	 
+li {background-color: rgba(135,206,235,1.0);
+	display: inline; /**визуализиране на елементите на списъка на един ред**/
+	padding: 5px 10px; /**отстъпи от текста с цвета на фона на текста**/
+	margin: 10px; /**отстъпи от текста с прозрачен фон**/
+	text-align: center;
+	}
+
+div.theorem {background-color: #FFFBF5;
+		color: #42B0D1;
+		font-family: "Times New Roman", serif;
+		font-style: italic;
+		font-size: 13pt;
+		margin-left: 5%; /**отстъп от ляво за подравняване на теорема**/
+		margin-right: 5%; /**отстъп от дясно за подравняване на теорема**/
+		padding: 5px 2em; /**отстъпи над и под текста на теоремата и между текста на теоремата и вертикалните линии от ляво и дясно**/
+		border-left: solid rgba(135,206,235,1.0) 15px; /**поставяне на вертикална линия от ляво на теоремата**/
+		border-right: solid rgba(135,206,235,1.0) 15px; /**поставяне на вертикална линия от дясно на теоремата**/
+		}
+			
+h1 {color: #3690AB;
+   text-align:center;
+   text-transform: uppercase;}
+   
+div.formula {text-align:center;
+			font-size: 16pt;
+			font-weight: bold;}
+
+p b {font-size: 15pt;}
+
+a:link {text-decoration: none; /**визуализиране на хипервръзките без подчертаване**/
+	color: AntiqueWhite; /**промяна на цвета на хипервръзките**/
+   }
+ 
+a:visited {color: #3690AB;} /**промяна на цвета на посетена хипервръзка**/
+ 
+a:hover {color: #FFFFFF;} /**промяна на цвета на хипервръзката при преминаване с курсора на мишката над нея**/
+li:hover {background-color: #AD9C84;} /**промяна на цвета на фона на хипервръзката при преминаване с курсора на мишката над нея**/
+   
+img {position: relative; /**позициониране на изображенията - относително спрямо текущото място**/
+	left:40%; /** позиция спрямо елементите отляво**/
+	top: 20px;  /**позиция спрямо елементите отгоре**/
+	margin-bottom: 30px;  /**отстъп между изображението и елементите под него**/
+	}
+	
+.fig {font-size: 80%; /**размер на пояснителния текст към изображенията**/
+	 font-style: italic; /**стил на пояснителния текст към изображенията**/
+	 font-family: "Times New Roman", serif; /**шрифт на пояснителния текст към изображенията**/
+	 text-align: center; /**позиция на пояснителния текст към изображенията**/
+	 }
+	 
+#refer:link {text-decoration: underline;
+			color: #AD9C84;}
+#refer:visited {color: #1A4551;}
+#refer:hover {color: #3690AB;}
+

@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Задача 0604: Свойство value на текстово поле</title>
+
+		<style>
+			body {	font-size: 150%;
+					font-family: Consolas; }
+			input, button {	font-size: 100%;
+					font-family: Consolas;
+					text-align: center; }
+		</style>
+		
+		<script>
+
+				
+			function calc()
+			{
+				var n1 = document.getElementById('name1').value;
+				var n2 = document.getElementById('name2').value;
+				document.getElementById("res1").innerHTML = "Настоящата възраст на "+n1+" "+n2+" e:"
+				
+				var d = new Date();
+				var n3 = Number(document.getElementById('num').value);
+				if (n1.length > 0 && n1.length > 0)
+				{
+					if (n3>0 && n3>999 && n3<d.getFullYear())
+					{
+						document.getElementById('res2').innerHTML = d.getFullYear()-n3 + " години";
+					}
+					else
+					{
+						document.getElementById('res2').innerHTML = "Въвели сте неточна година"
+					}
+				}	
+				else
+				{
+				document.getElementById('res2').innerHTML = "Въведете име и фамилия"
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<p>
+			Въведете име:
+			<input type="text" id="name1" value="" size="20">
+		</p>
+		<p>
+			Въведете фамилия:
+			<input type="text" id="name2" value="" size="20">
+		</p>
+		<p>
+			Въведете година на раждане:
+			<input type="text" id="num" value="" size="5">
+		</p>
+		
+		<p id="res1"></p>
+		<span id="res2"></span>
+		<button onclick="calc()">Изчисли възраст</button>
+	</body>
+</html>

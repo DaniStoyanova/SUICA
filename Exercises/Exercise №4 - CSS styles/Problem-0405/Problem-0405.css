@@ -1,0 +1,38 @@
+body {background-color: AntiqueWhite;
+	 color: #1A4551;
+	 text-align: justify;
+	 font-family: Arial, sans-serif;}
+	 
+li {background-color: rgba(135,206,235,1.0);
+  display: inline; /**визуализиране на елементите на списъка на един ред**/
+  padding: 5px 10px; /**отстъпи от текста с цвета на фона на текста**/
+  margin: 10px; /**отстъпи от текста с прозрачен фон**/
+  text-align: center;
+  }
+
+div.theorem {background-color: #FFFBF5;
+			color: #42B0D1;
+			font-family: "Times New Roman", serif;
+			font-style: italic;
+			font-size: 13pt;}
+			
+h1 {color: #3690AB;
+   text-align:center;
+   text-transform: uppercase;}
+   
+div.formula {text-align:center;
+			font-size: 16pt;
+			font-weight: bold;}
+
+p b {font-size: 15pt;}
+
+a:link {text-decoration: none; /**визуализиране на хипервръзките без подчертаване**/
+	    color: AntiqueWhite; /**промяна на цвета на хипервръзките**/
+	   }
+
+a:visited {color: #3690AB;} /**промяна на цвета на посетена хипервръзка**/
+
+a:hover {color: #FFFFFF;} /**промяна на цвета на хипервръзката при преминаване с курсора на мишката над нея**/
+li:hover {background-color: #AD9C84;} /**промяна на цвета на фона на хипервръзката при преминаване с курсора на мишката над нея**/
+
+ 

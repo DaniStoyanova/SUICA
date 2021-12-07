@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1502</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		
+		function main()
+		{
+			p = new Suica();
+			p.gl.canvas.addEventListener('mousedown',mouseDown,false);
+			p.gl.canvas.addEventListener('contextmenu',contextMenu,false);
+
+			orthographic(-200,200);
+			lookAt([0,0,10],[0,0,0],[0,1,0]);
+		}
+		
+		function contextMenu(event)
+		{
+			event.preventDefault();
+		}
+
+		function mouseXY(event)
+		{
+			var x = event.clientX-event.target.offsetLeft-event.target.offsetWidth/2;
+			var y = -(event.clientY-event.target.offsetTop-event.target.offsetHeight/2);
+			return [x,y,0];
+		}
+
+		function mouseDown(event)
+		{	
+			p = new Suica();
+			orthographic(-200,200);
+			lookAt([0,0,10],[0,0,0],[0,1,0]);
+			
+			sphere(mouseXY(event),random(20,50)).custom({color:[random(0,1),random(0,1),random(0,1)]});
+		}
+		
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>
+
+</html>

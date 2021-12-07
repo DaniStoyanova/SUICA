@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1402</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		
+		function main()
+		{
+			p = new Suica();
+						
+			r = 20;
+			R1 = 4;
+			R2 = 2;
+			alpha = radians(0);
+			
+			circle([0,0,0],r).custom({
+									color: [0,1,0],
+									mode: Suica.LINE									
+									});
+			a = sphere([r*Math.cos(alpha),r*Math.sin(alpha),0],R1).custom({color: [1,0,0]});
+			
+			l = R1 + 5;		
+			b = sphere([a.center[0] + l*Math.cos(alpha),a.center[1] + l*Math.sin(alpha),0],R2).custom({color: [0,1,1]});
+			
+			c = circle([a.center[0],a.center[1],a.center[2]],l).custom({
+									color: [0,1,0],
+									mode: Suica.LINE									
+									});
+			p.nextFrame = loop; 
+		}
+		
+		function loop()
+		{	
+			k = radians(1);
+			a.center = [r*Math.cos(alpha),r*Math.sin(alpha),0];
+			b.center = [a.center[0] + l*Math.cos(-alpha),a.center[1] + l*Math.sin(-alpha),0];
+			c.center = [a.center[0],a.center[1],a.center[2]];
+			alpha += k;
+			
+		}
+		
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>
+</html>

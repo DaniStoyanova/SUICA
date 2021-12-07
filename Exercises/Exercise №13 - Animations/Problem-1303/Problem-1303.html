@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1303</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		
+		function main()
+		{
+			p = new Suica();
+			oxyz();
+			//demo();
+			
+			
+			a = sphere([0,0,0],random(3,4)).custom({color: [0,1,1]});
+			var r = a.radius + 1;
+			b = cylinder([a.center[0],a.center[1] + r + 3,a.center[2]],r,random(5,25)).custom({
+					color: [1,1,0],
+					focus: [0,1,0],
+					hollow: true
+				});
+			
+		
+			v = vectorPoints(b.center,a.center);
+			t = 3;
+
+			p.nextFrame = moveAtoB; 
+		}
+		
+		function moveAtoB()
+		{
+			
+			var distAB = Math.sqrt(Math.pow(b.center[0] - a.center[0],2) + Math.pow(b.center[1] - a.center[1],2) + Math.pow(b.center[2] - a.center[2],2));
+			var astop = [a.center[0],b.center[1] + b.height,a.center[2]];
+			
+			if (distAB <= 2*a.radius + b.height)
+			{
+				for (var i=0; i<3; i++)
+				{
+					a.center[i] += v[i]*Suica.dTime/t;
+				}
+				distAB = Math.sqrt(Math.pow(b.center[0] - a.center[0],2) + Math.pow(b.center[1] - a.center[1],2) + Math.pow(b.center[2] - a.center[2],2));
+			}
+			
+			
+		}
+		
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>
+</html>

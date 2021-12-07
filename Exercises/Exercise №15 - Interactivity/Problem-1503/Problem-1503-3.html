@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+ <head>
+	<meta charset="utf-8">
+	<title>Упражнение 15</title>
+	<script src="suica.min.js"></script>
+	
+	<script>
+		function main()
+		{
+			p = new Suica();
+			
+			p.gl.canvas.addEventListener('mousedown',mouseDown,false);
+			
+			orthographic(-200,200);
+			lookAt([0,0,100],[0,0,0],[0,1,0]);
+			k=0;
+			
+		}
+		function mouseXY(event)
+		{
+			var x=event.clientX-event.target.offsetLeft-event.target.offsetWidth/2;
+			var y=-(event.clientY-event.target.offsetTop-event.target.offsetHeight/2);
+			return([x,y,0]);
+		}
+		function mouseDown(event)
+		{
+			if (k>0)
+			{
+				point(mouseXY(event)).custom({pointSize: 10});
+				segment(lastpos,mouseXY(event));
+				lastpos=mouseXY(event);
+				k+=1;
+				if(k == 3){
+				segment(firstpos, lastpos);
+				k = 0;
+				}
+			}
+			else
+			{
+				point(mouseXY(event)).custom({pointSize: 10});
+				firstpos=mouseXY(event);
+				lastpos=mouseXY(event);
+				k+=1;
+			}
+			
+		}
+		
+	</script>
+	
+ </head>
+ 
+ <body onload="main()">
+ 
+	<canvas width="1000" height="700" style="border: solid 1px black;">Не се поддържа canvas!</canvas>
+	
+	<noscript>Не се поддържа JS!</noscript>
+ 
+ </body>
+</html>

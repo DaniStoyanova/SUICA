@@ -1,0 +1,524 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Ханойска кула</title>
+
+    <script src="suica.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="TowerOfHanoi.css" />
+
+    <script>
+      function main() {
+        p = new Suica();
+
+        orthographic(-1000, 1000);
+        lookAt([-20, 50, 100], [-20, 50, 0], [0, 1, 0]);
+
+        background([1, 1.7, 0.9]);
+
+        p.gl.canvas.addEventListener("mousedown", mouseDown, false);
+        p.gl.canvas.addEventListener("mouseup", mouseUp, false);
+        p.gl.canvas.addEventListener("mousemove", mouseMove, false);
+
+        //създаване на 3 масива, за да се следи интерактивността на дисковете
+        arr1 = [];
+        arr2 = [];
+        arr3 = [];
+
+        //изработване на цилиндрите, с които ще правим Ханойската кула
+        all_disks = [];
+        n = 3; //избираме в началото да имаме 3 диска - минималния брой за играта "Ханойска кула"
+        create_all();
+
+        //суздаваме "пръчките", по които ще "нанизваме" цилиндрите
+        for (var i = -1; i < 2; i++) {
+          a = cylinder([-150 * i, 0, 0], 5, 130);
+          a.focus = [0, 1, 0];
+          a.color = [0.7, 0.1, 0.2];
+        }
+
+        // покривна площ отдолу RGB(241, 128, 62)
+        g = rectangle([0, -100, 0], [10000, 250]);
+        g.color = [0.95, 0.5, 0.24];
+        g.light = false;
+
+        //броячи по колко диска има на всяка колона
+        first_cnt = arr1.length;
+        second_cnt = 0;
+        third_cnt = 0;
+
+        //използваме тази променлива да запазваме Х координатата на последния кликнат диск
+        coordinate_X = 0;
+
+        //брояч на направените движения
+        moves_counter = 0;
+
+        //показател къде последно се е намирал обекта, който местим
+        last_position = 0;
+        //показател къде сега се намира обекта, който сме преместили
+        new_position = 0;
+
+        obj = undefined;
+        fake_obj = obj;
+      }
+
+      function mouseDown(event) {
+        obj = p.objectAtPoint(event.clientX, event.clientY);
+        if (obj) {
+          coordinate_X = obj.center[0];
+
+          if (obj.center[0] == -150) {
+            first_cnt--;
+            last_position = 1;
+            activate_interactivity(arr1);
+          } else if (obj.center[0] == 0) {
+            second_cnt--;
+            last_position = 2;
+            activate_interactivity(arr2);
+          } else if (obj.center[0] == 150) {
+            third_cnt--;
+            last_position = 3;
+            activate_interactivity(arr3);
+          }
+        }
+      }
+
+      function mouseMove(event) {
+        var x =
+          event.clientX -
+          p.gl.canvas.offsetLeft -
+          5 -
+          p.gl.canvas.clientWidth / 1.9 +
+          (window.scrollX | window.pageXOffset);
+        var y = -(
+          event.clientY -
+          p.gl.canvas.offsetTop -
+          5 -
+          p.gl.canvas.clientHeight / 1.7 +
+          (window.scrollY | window.pageYOffset)
+        );
+        if (obj) obj.center = [x, y, 0];
+      }
+
+      function mouseUp(event) {
+        var x =
+          event.clientX -
+          p.gl.canvas.offsetLeft -
+          5 -
+          p.gl.canvas.clientWidth / 1.9 +
+          (window.scrollX | window.pageXOffset);
+        var y = -(
+          event.clientY -
+          p.gl.canvas.offsetTop -
+          5 -
+          p.gl.canvas.clientHeight / 1.7 +
+          (window.scrollY | window.pageYOffset)
+        );
+
+        if (obj) {
+          if (mouseUp_conditions(-50, 50, arr2)) {
+            obj.center = [0, second_cnt * 20, 0];
+            second_cnt++;
+            new_position = 2;
+            deactivate_interactivity(arr2);
+          } else if (mouseUp_conditions(100, 200, arr3)) {
+            obj.center = [150, third_cnt * 20, 0];
+            third_cnt++;
+            new_position = 3;
+            deactivate_interactivity(arr3);
+          } else if (mouseUp_conditions(-200, -100, arr1)) {
+            obj.center = [-150, first_cnt * 20, 0];
+            first_cnt++;
+            new_position = 1;
+            deactivate_interactivity(arr1);
+          } else {
+            fake_obj = obj;
+            if (coordinate_X == -150) {
+              obj.center = [-150, first_cnt * 20, 0];
+              first_cnt++;
+              new_position = 1;
+              deactivate_interactivity(arr1);
+            } else if (coordinate_X == 0) {
+              obj.center = [0, second_cnt * 20, 0];
+              second_cnt++;
+              new_position = 2;
+              deactivate_interactivity(arr2);
+            } else {
+              obj.center = [150, third_cnt * 20, 0];
+              third_cnt++;
+              new_position = 3;
+              deactivate_interactivity(arr3);
+            }
+          }
+          obj = undefined;
+
+          if (last_position != new_position) {
+            var moves_el = document.getElementById("moves");
+            moves_counter++;
+            moves_el.innerHTML = "Moves: " + moves_counter;
+          }
+
+          if (arr3.length == n) {
+            showSuccessText();
+            arr3_last = arr3.slice(-1);
+            arr3_last[0].custom({ interactive: false });
+          }
+        }
+      }
+
+      function mouseUp_conditions(num1, num2, arr) {
+        var x =
+          event.clientX -
+          p.gl.canvas.offsetLeft -
+          5 -
+          p.gl.canvas.clientWidth / 1.9 +
+          (window.scrollX | window.pageXOffset);
+        var y = -(
+          event.clientY -
+          p.gl.canvas.offsetTop -
+          5 -
+          p.gl.canvas.clientHeight / 1.7 +
+          (window.scrollY | window.pageYOffset)
+        );
+
+        var num;
+        if (arr == arr1) num = arr1.length;
+        else if (arr == arr2) num = arr2.length;
+        else num = arr3.length;
+
+        return (
+          x > num1 &&
+          x < num2 &&
+          y > 0 &&
+          y < 100 &&
+          (arr.length == 0 ||
+            (arr.length != 0 && obj.radius < arr[num - 1].radius))
+        );
+      }
+
+      function activate_interactivity(arr) {
+        arr.pop();
+        if (arr.length != 0) {
+          last_element = arr.slice(-1);
+          last_element[0].custom({ interactive: true });
+        }
+      }
+
+      function deactivate_interactivity(arr) {
+        if (arr.length != 0) {
+          last_element = arr.slice(-1);
+          last_element[0].custom({ interactive: false });
+        }
+        arr.push(obj);
+      }
+
+      function restartGame() {
+        erase_all();
+        create_all();
+        hideSuccessText();
+      }
+
+      function hideSuccessText() {
+        var text = document.getElementById("success");
+        text.style.display = "none";
+      }
+
+      function showSuccessText() {
+        var text = document.getElementById("success");
+        text.style.display = "block";
+      }
+
+      function buttonUp() {
+        erase_all();
+        if (n < 6) n++;
+        create_all();
+        minimum_moves_count();
+      }
+
+      function buttonDown() {
+        erase_all();
+        if (n > 3) n--;
+        create_all();
+        minimum_moves_count();
+      }
+
+      function minimum_moves_count() {
+        min_moves = document.getElementById("min_moves");
+        if (n == 3) min_moves.innerHTML = "Minimum Moves: 7";
+        else if (n == 4) min_moves.innerHTML = "Minimum Moves: 15";
+        else if (n == 5) min_moves.innerHTML = "Minimum Moves: 31";
+        else if (n == 6) min_moves.innerHTML = "Minimum Moves: 63";
+      }
+
+      function erase_all() {
+        hideSuccessText();
+
+        for (var i = 0; i < all_disks.length; i++) {
+          all_disks[i].custom({ interactive: false, visible: false });
+        }
+        all_disks = [];
+        arr1 = [];
+        arr2 = [];
+        arr3 = [];
+
+        first_cnt = 0;
+        second_cnt = 0;
+        third_cnt = 0;
+
+        var moves_el = document.getElementById("moves");
+        moves_counter = 0;
+        moves_el.innerHTML = "Moves: " + moves_counter;
+      }
+
+      function create_all() {
+        disks_count = document.getElementById("disks");
+        disks_count.innerHTML = "Disks: " + n;
+
+        first_cnt = n;
+
+        for (var i = 0; i < n; i++) {
+          C = cylinder([-150, i * 20, 0], 50 - i * 6, 20);
+
+          C.focus = [0, 1, 0];
+
+          if (i == n - 1) C.custom({ interactive: true });
+
+          all_disks.push(C);
+          arr1.push(C);
+        }
+        color_disks();
+      }
+
+      function color_disks() {
+        all_disks[0].color = [0.27, 0.12, 0.4];
+        all_disks[1].color = [1, 0.73, 0.38];
+        all_disks[2].color = [1, 0.48, 0.36];
+        if (n > 3) all_disks[3].color = [0, 0.67, 0.63];
+        if (n > 4) all_disks[4].color = [0.56, 0.82, 0.78];
+        if (n > 5) all_disks[5].color = [1, 0.96, 0.85];
+      }
+    </script>
+  </head>
+
+  <body onload="main()">
+    <h1>Ханойска кула</h1>
+    <h4>Йорданка Стоянова 2021-2022 г.</h4>
+
+    <a><h2>I. Увод</h2></a>
+    <p>
+      <em>Кулата на Ханой </em>(наричана още "Проблемът на храма в Бенарес",
+      "Кулата на Брахма" или "Кулата на Лукас", а понякога и "Кули", или просто
+      "пирамидален пъзел") е математическа игра или пъзел, състоящ се от три
+      пръчки и няколко диска с различен диаметър, които могат да се плъзгат
+      върху всяка пръчка. Пъзелът започва с дискове, подредени върху една пръчка
+      в низходящ ред, като най-малкият е най-отгоре, като по този начин се
+      доближава до конична форма. Целта на пъзела е да преместите цялата купчина
+      до последната пръчка, като спазвате следните правила:
+    </p>
+    <ol>
+      <li>Само един диск може да бъде преместен в даден момент.</li>
+      <li>
+        Всеки ход се състои в това да вземете горния диск от една от купчините и
+        да го поставите върху друга купчина или върху празен прът.
+      </li>
+      <li>
+        Никой диск не може да бъде поставен върху диск, който е по-малък от
+        него.
+      </li>
+    </ol>
+    <p style="font-size: 15px">
+      <em
+        >С 3 диска пъзелът може да бъде решен със 7 хода. Минималният брой
+        ходове, необходими за решаване на пъзел "Кулата на Ханой", е 2n - 1,
+        където n е броят на дисковете.</em
+      >
+    </p>
+
+    <img src="images/animation1.gif" />
+
+    <a><h2>II. Произход</h2></a>
+    <p>
+      Пъзелът е представен на Запад от френския математик
+      <em>Едуар Лукас</em> през 1883 г. Почти веднага се появяват многобройни
+      митове за древния и мистичен характер на пъзела, включително един за
+      индийски храм в Каши Вишванат, в който има голяма стая с три изтъркани от
+      времето стълба, заобиколени от 64 златни диска. Изпълнявайки заповедта на
+      древно пророчество, оттогава браминските жреци преместват тези дискове в
+      съответствие с неизменните правила на Брахма. Затова пъзелът е известен и
+      като <em>Кулата на Брахма</em>. Според легендата, когато последният ход от
+      пъзела бъде завършен, светът ще свърши.
+    </p>
+    <p>
+      Ако легендата беше вярна и ако жреците можеха да преместват дискове със
+      скорост един в секунда, използвайки най-малкия брой ходове, щеше да им
+      отнеме 264 - 1 секунди или приблизително 585 милиарда години, което е
+      около 42 пъти повече от сегашната възраст на Вселената.
+    </p>
+    <p>
+      Съществуват много варианти на тази легенда. Например в някои разкази
+      храмът е манастир, а свещениците са монаси. Храмът или манастирът може да
+      се намира на различни места, включително в Ханой, и да е свързан с
+      всякаква религия. В някои версии са въведени и други елементи, като
+      например фактът, че кулата е създадена в началото на света, или че
+      свещениците или монасите могат да правят само по едно движение на ден.
+    </p>
+
+    <a><h2>III. Решение</h2></a>
+
+    <p>
+      Пъзелът може да се играе с произволен брой дискове, въпреки че много от
+      версиите за играчки имат около 7-9 диска. Минималният брой ходове,
+      необходими за решаване на пъзел "Кулата на Ханой", е 2n - 1, където n е
+      броят на дисковете. Това е точно n-тото число на Мерсен без изисквания за
+      първичност.
+    </p>
+    <p class="solution">Итеративно решение</p>
+    <p>
+      Простото решение на пъзела с играчки е да се редуват ходове между
+      най-малката част и не-малката част. Когато премествате най-малката
+      фигурка, винаги я премествайте на следващата позиция в същата посока
+      (надясно, ако началният брой фигурки е четен, и наляво, ако началният брой
+      фигурки е нечетен). Ако в избраната посока няма позиция за кула,
+      преместете фигурата в противоположния край, но след това продължете да се
+      движите в правилната посока. Например, ако сте започнали с три парчета, ще
+      преместите най-малкото парче в противоположния край, а след това ще
+      продължите в лявата посока. Когато е ред да преместите не най-малката
+      фигура, има само един позволен ход. По този начин ще завършите пъзела с
+      най-малко ходове.
+    </p>
+
+    <p class="solution2">Опростено описание на итеративното решение</p>
+    <p><em>За четен брой дискове:</em></p>
+    <ul>
+      <li>
+        направете легален ход между колчета <em>A</em> и <em>B</em> (в двете
+        посоки)
+      </li>
+      <li>
+        направете легален ход между колчетата <em>A</em> и <em>C</em> (в двете
+        посоки)
+      </li>
+      <li>
+        направете легалното движение между колчета <em>B</em> и <em>C</em> (в
+        двете посоки)
+      </li>
+      <li>повторете до приключване на работата.</li>
+    </ul>
+
+    <p><em>За нечетен брой дискове:</em></p>
+    <ul>
+      <li>
+        направете легален ход между колчетата <em>A</em> и <em>C</em> (в двете
+        посоки)
+      </li>
+      <li>
+        направете легален ход между колчета <em>A</em> и <em>B</em> (в двете
+        посоки)
+      </li>
+      <li>
+        направете легалното движение между колчета <em>B</em> и <em>C</em> (в
+        двете посоки)
+      </li>
+      <li>повторете до приключване на работата.</li>
+    </ul>
+    <p style="text-align: center">
+      <em style="color: rgb(133, 54, 66); font-size: 17px"
+        >Във всеки случай се правят общо 2n - 1 хода.</em
+      >
+    </p>
+
+    <img
+      src="images/image1.jpg"
+      width="400"
+      height="200"
+      style="margin-bottom: 1em"
+    />
+
+    <p class="solution">Рекурсивно решение</p>
+    <p>
+      Ключът към рекурсивното решаване на даден проблем е да осъзнаем, че той
+      може да бъде разбит на набор от по-малки подпроблеми, за всяка от които се
+      прилага същата обща процедура за решаване, която търсим, и след това
+      общото решение се намира по някакъв прост начин от решенията на тези
+      подпроблеми. Това, че всяка от тези създадени подпроблеми е "по-малка",
+      гарантира, че в крайна сметка ще се достигне до базовия(те) случай(и).
+      Оттам за кулите на Ханой:
+    </p>
+    <ul>
+      <li>маркирайте колчетата <em>A, B, C</em></li>
+      <li>нека <em>n</em> е общият брой дискове</li>
+      <li>
+        номерирайте дисковете от <em>1</em> (най-малък, най-горен)
+        <em>до n </em>(най-голям, най-долен).
+      </li>
+    </ul>
+    <p>
+      Ако приемем, че има m най-горни диска на изходното колче, а всички
+      останали дискове са по-големи от m, така че могат спокойно да бъдат
+      пренебрегнати; да преместим m диска от изходно колче към целево колче,
+      като използваме резервно колче, <em>без да нарушаваме правилата:</em>
+    </p>
+    <ol>
+      <li>
+        Преместете <em>m - 1</em> диска от източника към резервното колче, като
+        използвате същата обща процедура за решаване. Правилата не се нарушават
+        по презумпция. Това оставя диска m като горен диск на изходното колче.
+      </li>
+      <li>
+        Преместете диска <em>m</em> от изходното към целевото колче, което е
+        гарантирано като валидно преместване, според предположенията - проста
+        стъпка.
+      </li>
+      <li>
+        Преместете <em>m - 1</em> диска, които току-що поставихме върху
+        резервния, от резервния към целевия колчец чрез същата обща процедура за
+        решаване, така че да бъдат поставени върху диска <em>m</em>, без да се
+        нарушават правилата.
+      </li>
+      <li>
+        Базовият случай е да се преместят 0 диска (в стъпки 1 и 3), т. е. да не
+        се прави нищо - което очевидно не нарушава правилата.
+      </li>
+    </ol>
+
+    <img
+      src="images/image2.png"
+      width="400"
+      height="200"
+      style="margin-bottom: 1em"
+    />
+
+    <a><h2>IV. Указания за игра</h2></a>
+    <p>
+      Играта се състои от <em>3 колчета</em> и <em>n на брой диска</em>, които
+      са разположени на първото колче. Чрез бутоните <em>▼</em> и
+      <em>▲</em>
+      може да изберете броя дискове, с които желаете да играете. Целта на играта
+      е да се пренаредят всички доскове върху третото(най-вдясно) колче с
+      възможно най-малко на брой движения, като
+      <em>не е позволено</em> поставянето на диск с по-голям радиус върху диск с
+      по-малък радиус. При приключване на играта, може да натиснете бутона
+      <em>Restart</em> и да започнете нова игра.
+    </p>
+
+    <div id="game_text">
+      <span id="disks">Disks: 3</span>
+      <span id="buttons">
+        <button onclick="buttonDown()" class="button1" style="font-size: 12px">
+          ▼
+        </button>
+        <button onclick="buttonUp()" class="button2" style="font-size: 12px">
+          ▲
+        </button>
+      </span>
+      <span id="moves" style="padding-right: 150px; padding-left: 135px"
+        >Moves: 0</span
+      >
+      <button onclick="restartGame()">Restart</button>
+    </div>
+
+    <canvas width="600px" height="370px"></canvas>
+    <div id="success">Well Done!</div>
+    <div id="min_moves">Minimum Moves: 7</div>
+  </body>
+</html>

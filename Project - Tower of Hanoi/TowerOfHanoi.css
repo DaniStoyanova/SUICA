@@ -1,0 +1,154 @@
+﻿body
+{
+	width: 800px;
+	margin: auto;
+	margin-bottom: 20px;
+	background-color: rgb(245, 241, 222);
+	text-align: center;
+	font-family: Candara;
+	color: rgba(130, 52, 0, 0.959);
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+	
+h1
+{
+	font-size: 3em;
+	margin-bottom: 0;
+	text-shadow: 0 0 3px rgb(238, 129, 26);
+}
+
+h2
+{
+	font-size: 1.6em;
+	margin-top: 1.2em;
+	margin-bottom: 0;
+	border-top: 1px dotted rgba(48, 19, 0, 0.747);
+	text-align: center;
+	text-shadow: 0 0 1px rgba(130, 52, 0, 0.747);
+}
+
+h4
+{
+	margin: 0 0 0.5em 0;
+	font-weight: normal;
+}
+
+p
+{
+	margin-top: 0.5em;
+	text-align: justify;
+	font-size: 1.1em;
+}
+
+img
+{
+	display: block;
+	margin: auto;
+	border: solid 1px rgb(255, 208, 0);
+	box-shadow: 0 0 5px 0px rgb(255, 228, 110);
+}
+
+em
+{
+	font-weight: bold;
+	font-style: italic;
+	color: rgb(255, 174, 0);
+}
+
+.solution
+{
+	display: inline-block;
+	font-size: 125%;
+	font-style: italic;
+	margin: 0 auto;
+	padding-bottom: 0;
+	color: rgb(151, 60, 0);
+	text-shadow: 0 0 2px rgb(255, 228, 110);
+	border-bottom: dotted 2px rgba(48, 19, 0, 0.747);
+}
+
+.solution2
+{
+	display: inline-block;
+	font-size: 110%;
+	font-style: italic;
+	margin: 0 auto;
+	padding-bottom: 0;
+	color: rgb(151, 60, 0);
+	text-shadow: 0 0 2px rgb(255, 228, 110);
+}
+
+li
+{
+	text-align: justify;
+	font-size: 110%;
+}
+
+canvas
+{
+	display: block;
+	margin: 0em auto 0 auto;
+	box-shadow: 0 0 25px 0px rgb(245, 234, 184);
+}
+
+#game_text {
+    position: relative;
+	top: 2.9em;
+	left: 0;
+    text-align: center;
+}
+
+#moves, #disks {
+    text-align: left;
+	padding-top: 0;
+    font: bold 20px Candara;
+    color: darkred;
+}
+
+button {
+    justify-content: right;
+    align-items: right;
+    padding-top: 10px;
+    padding-right: 10px;
+	background: linear-gradient(to bottom right, #ff8d30, #fcba90);
+ 	border: 0;
+  	border-radius: 12px;
+  	color: #FFFFFF;
+  	cursor: pointer;
+  	display: inline-block;
+  	font-family: Candara;
+  	font-size: 14px;
+  	font-weight: 500;
+  	line-height: 2.5;
+  	outline: transparent;
+  	padding: 0 0.7em;
+  	text-align: center;
+}
+
+#success {
+    position: absolute;
+    display: none;
+    margin-left: 170px;
+	margin-top: -330px;
+    width: 510px;
+    font: 50px Candara;
+    text-align: center;
+    color: gold;
+	text-shadow: 0 0 2px rgb(228, 171, 40);
+}
+
+#min_moves {
+    position: relative;
+	left: 160px;
+    top: -40px;
+    padding-left: 80px;
+    font: 20px Candara;
+    text-align: center;
+    color:white;
+}
